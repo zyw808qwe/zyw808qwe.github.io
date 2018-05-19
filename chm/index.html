@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>忏悔法门</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/site.css" rel="stylesheet" type="text/css" />
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="htmleaf-container">
+		<header class="htmleaf-header bgcolor-10">
+			<h1>忏悔法门----佛</h1>
+			一个释放你内心的那点东西！
+			一个懂得忏悔的人就是有福的人！
+		</header>
+		<div class="container mp30">
+			<div class="row">
+			<div class="col-md-12">
+
+			
+			
+<div class="jumbotron">
+			
+		
+			
+  <p><i id="result_faile_add"></i></p>
+  <p>地址:<i id="my_qianbaodizhi">正在获取你的地址。。。。。</i></p>
+  <p>一个懂得忏悔的人就是有福的人</p>
+  <p>
+  
+  <form class="form-horizontal">
+
+            
+			<p>名字<input id="wedname" type="text" placeholder="请填你的名字或者笔名" class="input-xlarge search-query">
+            </p>
+			<p>你想说的内容<textarea class="form-control" id="wed_message"> </textarea>
+			</p>
+<td> <button type="button" class="btn btn-primary btn-lg" id="form_btn">提交</button></td>
+<td> <button type="button" class="btn btn-primary btn-lg" id="form_btnhq">获取</button></td>
+
+  </form>
+
+  </p>
+  
+
+
+
+
+
+
+</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			</div>
+				<div class="col-md-10">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-list-alt"></span><b>News</b></div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-xs-12">
+									<ul class="demo1"  id="result_list_add"  >
+										<li class="news-item">
+											<table cellpadding="4">
+<tr><td><img src="images/1.png" width="60" class="img-circle" /></td><td>获取数据中</td></tr>
+<tr><td><img src="images/2.png" width="60" class="img-circle" /></td><td>获取数据中</td></tr>
+<tr><td><img src="images/3.png" width="60" class="img-circle" /></td><td>获取数据中</td></tr>
+<tr><td><img src="images/4.png" width="60" class="img-circle" /></td><td>获取数据中</td></tr>
+<tr><td><img src="images/5.png" width="60" class="img-circle" /></td><td>获取数据中</td></tr>
+<tr><td><img src="images/6.png" width="60" class="img-circle" /></td><td>获取数据中</td></tr>
+<tr><td><img src="images/7.png" width="60" class="img-circle" /></td><td>获取数据中</td></tr>
+											</table>
+										</li>
+										
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			<div class="col-md-1">
+			</div>
+					
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/jquery.bootstrap.newsbox.min.js" type="text/javascript"></script>
+	
+<!--<script src=lib/jquery-3.3.1.min.js></script>-->
+<script src="lib/nebPay.js"></script>
+<script src="lib/nebulas.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $(".demo1").bootstrapNews({
+            newsPerPage: 5,
+            autoplay: true,
+			pauseOnHover:true,
+            direction: 'up',
+            newsTickerInterval: 4000,
+            onToDo: function () {
+                //console.log(this);
+            }
+        });
+		
+    });
+</script>
+<script>
+
+    "use strict";
+	var dappAddress = "n1hFo4A55QvxZnGH7DRK6c5V8K75eknS1rY";//合约地址
+	 var MyFrom = "n1LEWmHXq5g7EQfnW7JZJUmHo1Wkub1GLkH";//当前钱包地址
+	 var result_date_son;// 获取的数据
+	 var run_one=0;// 获取的数据
+	var nebulas = require("nebulas"),
+	Account = nebulas.Account,
+	neb = new nebulas.Neb();
+	
+	
+	function getall_search() {
+        var from = MyFrom;
+
+        var value = "0";
+        var nonce = "0"
+        var gas_price = "1000000"
+        var gas_limit = "2000000"
+        var callFunction = "GetTopic";
+        var callArgs = "[\"" + $("#search_value").val() + "\"]"; //in the form of ["args"]
+        var contract = {
+            "function": callFunction,
+            "args": '["100", "100"]'
+        }
+
+        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
+            cbSearch(resp)
+        }).catch(function (err) {
+            //cbSearch(err)
+            console.log("error:" + err.message)
+        })
+}	
+
+		function getmyl_search() {
+        var from = MyFrom;
+
+        var value = "0";
+        var nonce = "0"
+        var gas_price = "1000000"
+        var gas_limit = "2000000"
+        var callFunction = "GetAddressTopic";
+        var callArgs = "[\"" + $("#search_value").val() + "\"]"; //in the form of ["args"]
+        var contract = {
+            "function": callFunction,
+            "args": '["100", "100", "'+MyFrom+'"]'
+        }
+		run_one=1;
+        neb.api.call(from,dappAddress,value,nonce,gas_price,gas_limit,contract).then(function (resp) {
+            cbSearch(resp)
+        }).catch(function (err) {
+            //cbSearch(err)
+            console.log("error:" + err.message)
+        })
+}
+	//testnet
+	neb.setRequest(new nebulas.HttpRequest("https://mainnet.nebulas.io"));
+function getWallectInfo() {
+			window.postMessage({
+			"target": "contentscript",
+			"data": {},
+			"method": "getAccount",
+			}, "*");
+
+			window.addEventListener('message', function (e) {
+
+			getall_search()
+			if (e.data && e.data.data) {
+				$("#my_qianbaodizhi").text(e.data.data.account)
+				MyFrom=e.data.data.account;
+				$("#my_qianbaodizhi").text(MyFrom)
+				
+			if (e.data.data.account) {//这就是当前钱包中的地址
+			app.address = e.data.data.account
+			
+			app.updateUserInfo() //小提示：获取钱包地址后，就可以调用对应的方法查询用户信息啦
+			}
+			}
+			
+			});
+}
+getWallectInfo(); 
+
+
+
+
+
+
+	
+    // 搜索功能: 查找Super-Dictionary 中有没有该词条
+    $("#search").click(function(){
+        getall_search();
+    })
+
+    //return of search,
+    function cbSearch(resp) {
+        var result = resp.result    ////resp is an object, resp.result is a JSON string
+        console.log("return of rpc call: " + JSON.stringify(result))
+
+        if (result === 'null'){
+           
+
+            $("#result_faile_add").text($("#search_value").val())
+
+          
+        } else{
+            //if result is not null, then it should be "return value" or "error message"
+            try{
+                result = JSON.parse(result)
+            }catch (err){
+                //result is the error message
+            }
+			
+	
+var jsonBook=JSON.stringify(resp); 
+var objectBook=JSON.parse(jsonBook);
+
+//"AllNums":4,"MyNums":4
+//,"nextIndex":-1}
+
+
+var result_date=objectBook.result;
+//document.getElementById("result_faile_addadd").innerHTML =	result_date;
+
+var JSON_date=JSON.parse(result_date);
+//alert(JSON_date.data[1].Title);
+//alert(JSON_date.AllNums);
+
+///
+//var dddd=JSON.stringify(resp); 
+//var objectBookk=eval("("+dddd+")"); 
+
+
+
+
+//var urladd='<li class="news-item">'+
+//		'<table cellpadding="4">'+
+//			'<tr>'+
+//				'<td><img src="images/4.png" width="60" class="img-circle" /></td>'+
+//				'<td>Lorem ipsum <a href="#">Read more...</a></td>'+
+//			'</tr>'+
+//		'</table>'+
+//	'</li>';
+	var urladd='';
+    for(var i=0;i<JSON_date.data.length;i++){
+			var Title= JSON_date.data[i].Title;
+			
+			var Name= JSON_date.data[i].Name;
+			var Message= JSON_date.data[i].Message;
+			var Messagedel= "";
+			if(run_one==1)
+			document.getElementById("wedname").value =Name;
+if(MyFrom == JSON_date.data[i].Author)
+	Messagedel='<input type="button" name="modify" onclick="dellid('+JSON_date.data[i].id+
+	')" value="删除'+JSON_date.data[i].id+	'" />';
+				  
+				 
+//	           result_date_son.push({
+//					id: JSON_date.data[i].id,
+//					id_address: JSON_date.data[i].id_address,
+//					Message: JSON_date.data[i].Message,
+//					Title: JSON_date.data[i].Title,
+//					Author: JSON_date.data[i].Author,
+//					Name: JSON_date.data[i].Name,
+//					Time: JSON_date.data[i].Time,
+//					});
+					// alert(Title);
+		urladd+='<li class="news-item">'+
+					'<table cellpadding="4">'+
+						'<tr>'+
+							'<td><img src="images/'+randNum(1,7)+'.png" width="60" class="img-circle" /></td>'+
+							'<td>'+Name+' 说:</td>'+
+							'<td>'+Message+ Messagedel+'</td>'+
+						'</tr>'+
+					'</table>'+
+				'</li>';
+				
+    }
+	
+	if(run_one==1)
+	{
+	run_one=2;
+	}
+	else
+	{
+	document.getElementById("result_list_add").innerHTML = urladd;
+		if(run_one==0)
+		getmyl_search();
+	}
+
+		  
+
+
+
+
+
+        }
+
+    }
+
+	
+	
+	function dellid(id)
+	{
+	
+	 		var to = dappAddress;
+		var value = "0";
+		var callFunction = "delTopicId"
+
+        var callArgs = "[" + id +"]";
+        serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
+            listener: cbPush        //设置listener, 处理交易返回信息
+        });
+
+        intervalQuery = setInterval(function () {
+            funcIntervalQuery();
+        }, 5000);
+
+	 
+	}
+	function changid(id)
+	{
+	 alert(id); 
+	}	
+	
+
+    // 添加信息功能: 像super-dictionary 中添加词条
+    $("#add").click(function() {
+        $(".result_faile").addClass("hide");
+        $(".add_banner").removeClass("hide");
+
+        $("#add_value").val("")
+    })
+
+    var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
+    var nebPay = new NebPay();
+    var serialNumber
+
+	var groupMyType_value = "0";
+var group_GoodLevel_value = "0";
+
+
+function set_push() {
+		var to = dappAddress;
+		var value = "0";
+		var callFunction = "addTopic"
+		
+
+		
+		
+		
+
+		
+		var timestamp=new Date().getTime();
+		
+			
+        var callArgs = "[\"" + timestamp + "\",\"" + $("#wed_message").val()+ "\",\""+ $("#wedname").val() +"\"]";
+        serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
+            listener: cbPush        //设置listener, 处理交易返回信息
+        });
+
+        intervalQuery = setInterval(function () {
+            funcIntervalQuery();
+        }, 5000);
+}
+$("#zywzyw").click(function() {
+
+getall_search()
+
+})
+
+$("#form_btn").click(function() {
+ 
+set_push()
+})
+
+
+
+
+    $("#form_btnhq").click(function() {
+
+getall_search();
+       
+    });
+
+	
+	
+    var intervalQuery
+
+    function funcIntervalQuery() {
+        nebPay.queryPayInfo(serialNumber)   //search transaction result from server (result upload to server by app)
+            .then(function (resp) {
+                console.log("tx result: " + resp)   //resp is a JSON string
+                var respObject = JSON.parse(resp)
+                if(respObject.code === 0){
+                    alert(`set ${$("#search_value").val()} succeed!`)
+                    clearInterval(intervalQuery)
+                }
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+
+    function cbPush(resp) {
+	JSON.stringify(resp)
+        console.log("response of push: " + JSON.stringify(resp))
+		 $("#result_faile_add").text(JSON.stringify(resp))
+		 getall_search()
+    }
+function randNum(minnum , maxnum){
+    return Math.floor(minnum + Math.random() * (maxnum - minnum));
+}
+</script>
+
+
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p><a href="https://incentive.nebulas.io/cn/signup.html?invite=32KAi" target="_blank"><h2>点我注册     参与发布DAPP获取100NAS</h2></a></p>
+<p>
+<a href="https://nebulas.io/cn/index.html" target="_blank">
+星云链官网<img src="https://nebulas.io/assets/images/nebulasx60.png" alt="Nebulas">
+</a>
+</p>
+
+</div>
+</body>
+</html>
